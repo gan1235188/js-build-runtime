@@ -1,0 +1,12 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    "dist",
+    "node_modules"
+  ],
+  "watch": [
+    "src"
+  ],
+  "exec": "npm run ts && node ./dist/server/index.js",
+  "ext": "ts, tsx, js"
+}
