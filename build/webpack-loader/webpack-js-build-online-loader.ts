@@ -1,19 +1,8 @@
 import { getOptions } from 'loader-utils'
-import validateOptions from 'schema-utils'
 import * as fs from 'fs'
 import * as babelCore from '@babel/core'
-import webpack from 'webpack'
 
 const transform = babelCore.transform
-
-const schema = {
-  type: 'object',
-  properties: {
-    test: {
-      type: 'string'
-    }
-  }
-}
 
 export default function (source: string) {
   output('', false, false)
@@ -25,6 +14,8 @@ export default function (source: string) {
       envName: options.envName,
       plugins: plugins
     })
+
+    output(result.code, false, true)
 
     return result.code
   } catch (e) {

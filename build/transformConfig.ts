@@ -1,3 +1,9 @@
+type babelTransformPlugin = any
+
+export interface featureTransformType {
+    [featureName: string]: babelTransformPlugin
+}
+
 export default {
     jsonStrings: '@babel/plugin-proposal-json-strings',
 
@@ -41,7 +47,7 @@ export default {
     asyncToGenerator: '@babel/plugin-transform-async-to-generator',
 
     // 转化箭头函数：()=>{} === function(){}
-    arrowFunctions: '@babel/plugin-transform-arrow-functions',
+    // arrowFunctions: '@babel/plugin-transform-arrow-functions',
 
     // 转化块级空间函数定义
     blockScopedFunctions: '@babel/plugin-transform-block-scoped-functions',
@@ -258,5 +264,5 @@ export default {
     privateMethods: '@babel/plugin-proposal-private-methods',
 
     // 支持装饰器：此插件的配置legacy必须与privateMthods和class-properties的loose一致
-    decorators: ['@babel/plugin-proposal-decorators', {decoratorsBeforeExport: true}]
-}
+    decorators: ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }]
+} as featureTransformType
