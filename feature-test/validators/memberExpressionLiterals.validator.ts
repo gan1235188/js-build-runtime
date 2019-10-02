@@ -1,4 +1,4 @@
-import { runTest, TestType } from '../testTools'
+import { runTest, TestType } from '../tools'
 import { Validator } from './types'
 
 const validator: Validator = {

@@ -1,6 +1,6 @@
 export enum TestType {
     checkResult, //比较结果
-    noWrong //不抛出错误
+    noWrong //没有错误
 }
 
 export type TestOption = {
@@ -16,7 +16,7 @@ const defaultTestOption = {
     type: TestType.noWrong,
     args: [] as any,
     result: undefined as any,
-    resultCheckFn: Object.is
+    resultCheckFn: (expect: any, result: any) => expect === result
 }
 
 function getTestOpt(opt: TestOption) {
