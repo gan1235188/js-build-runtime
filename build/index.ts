@@ -1,23 +1,38 @@
-import webpack from 'webpack'
+import * as webpack from 'webpack'
+import * as path from 'path'
+import transformConfig from './transformConfig'
 
 // export function build() {
 
 // }
-
-webpack({
-    entry: './es6-test/index.js',
-    mode: 'development',
-    output: {
-        path: __dirname,
-        filename: 'dist/es6-test.js'
-    },
-    devtool: false,
-    module: {
-        rules: [
-            {
-                test: /\.js/,
-                loader: require('./webpack-js-build-online-loader.js')
+const config: webpack.Configuration = {
+  entry: './test-code/index.js',
+  mode: 'development',
+  output: {
+    path: __dirname,
+    filename: 'dist/test-code/index.js'
+  },
+  devtool: false,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: path.resolve('./webpack-loader/webpack-js-build-online-loader.js'),
+            options: {
+              transformConfig,
+              envName: 'development',
             }
+          }
         ]
-    }
+      }
+    ]
+  }
+}
+
+webpack(config, (err, stats) => {
+  if (err) {
+    console.error(err)
+  }
 })
