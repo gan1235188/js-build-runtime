@@ -19,11 +19,13 @@ app.get('/pages/:path', (req, res) => {
 
 app.get('/feature-test', (req, res) => {
     setHeader(res, HttpHeaderContentTypeValue.Html)
+    
 })
 
 app.get('/dist/:path', (req, res) => {
     setHeader(res, HttpHeaderContentTypeValue.Js)
-    res.send(fs.readFileSync(`${distPath}/${req.params.path}`))
+    const jsContent = fs.readFileSync(`${distPath}/${req.params.path}`)
+    res.send(jsContent)
 })
 
 app.listen(81)

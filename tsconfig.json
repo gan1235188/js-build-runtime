@@ -2,12 +2,12 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-        "outDir": "./dist/",
+        "outDir": "./dist/server",
         "sourceMap": true,
         "noImplicitAny": true,
         "target": "ES5"
     },
     "include": [
-        "./src/**/*"
+        "./src/server/*"
     ]
 }

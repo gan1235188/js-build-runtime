@@ -1,5 +1,5 @@
 import memberExpressionLiterals from './memberExpressionLiterals.validator'
 
-export default {
+export default [
     memberExpressionLiterals
-}
+]

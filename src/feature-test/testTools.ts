@@ -36,20 +36,19 @@ export function runTest(testOpt: TestOption = defaultTestOption): boolean {
     
 }
 
-function testNoWrong(opt: TestOption): boolean {
-    const fn = new Function(...opt.args, opt.expression)
+function testNoWrong(opt: TestOption): boolean {    
     try{
+        const fn = new Function(...opt.args, opt.expression)
         fn()
         return true
     }catch(e) {}
 
-    return true
+    return false
 }
 
 function testCheckResult(opt: TestOption): boolean {
-    const fn = new Function(...opt.args, opt.expression)
     try{
-
+        const fn = new Function(...opt.args, opt.expression)
         return opt.resultCheckFn(opt.resultCheckFn, fn())
     }catch(e) {}
 

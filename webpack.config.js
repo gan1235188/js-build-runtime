@@ -1,11 +1,13 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    featureTest: './src/feature-test/index.ts'
+  },
   mode: 'development',
   output: {
     path: __dirname,
-    filename: 'dist/bundle.js'
+    filename: 'dist/feature-test.js'
   },
   resolve: {
     mainFields: ['jsnext:main', 'browser', 'main'],
