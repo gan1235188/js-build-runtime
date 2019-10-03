@@ -2,19 +2,53 @@ import * as webpack from 'webpack'
 import * as path from 'path'
 import transformConfig, { featureTransformType } from './transformConfig'
 
-export default function(specialTransformConfig: featureTransformType = transformConfig) {
-  const config = getWebpackConfig(specialTransformConfig)
+let specialTransformConfig: featureTransformType
 
-  webpack(config, (err, stats) => {
-    if (err) {
-      console.error(err)
+interface dynamicProperty {
+  [key: string]: boolean
+}
+
+export async function build(featureMap: dynamicProperty, specialWebpackConfig: any = {}) {
+  const pluginConfig = createSpecialPluginConfigByFeatureMap(featureMap, specialTransformConfig)
+  const specialConfig = getWebpackConfig(pluginConfig)
+
+  return new Promise((resolve, reject) => {
+    webpack({
+      ...specialConfig,
+      ...specialWebpackConfig
+    }, (err, stats) => {
+      if (err) {
+        reject(err)
+        console.error(err)
+        return
+      }
+
+      resolve()
+    })
+  })
+}
+
+export function setTransformPlugin(_specialTransformConfig: featureTransformType = transformConfig) {
+  // const config = getWebpackConfig(specialTransformConfig)
+  // specialConfig = config
+  specialTransformConfig = _specialTransformConfig
+}
+
+function createSpecialPluginConfigByFeatureMap(featureMap: dynamicProperty, specialTransformConfig: featureTransformType) {
+  const result: featureTransformType = {}
+
+  Object.keys(specialTransformConfig).forEach(key => {
+    if(!featureMap[key]) {
+      result[key] = specialTransformConfig[key]
     }
   })
+
+  return result
 }
 
 
 function getWebpackConfig(specialTransformConfig: featureTransformType) {
-  const defaultConfig: webpack.Configuration = {
+  const defaultConfig: any = {
     entry: './test-code/index.js',
     mode: 'development',
     output: {

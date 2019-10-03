@@ -31,9 +31,24 @@ function featureTest(content: any, options: FeatureTestOptions) {
     validators = uniqueValidators(validators)
 
     const testResult = runTest(content, validators)
-    console.log(testResult)
-    document.cookie="jsFeatureTest=" + JSON.stringify(testResult)
+    
+    setCookie('jsFeatureTest', JSON.stringify(testResult), new Date('2022-10-1'), '/')
     return testResult
+}
+
+function setCookie(name: string, value: string, expires: Date, path: string) {
+    document.cookie = `${name}=${value};expires=${expires};path=${path}`
+}
+
+function getAllCookie() {
+    const cookieMap: dynamicProperty = {}
+    const cookieList = document.cookie.split(';')
+    cookieList.forEach((cookie) => {
+        const [name, value] = cookie.split('=')
+        name && (cookieMap[name] = value)
+    })
+
+    return cookieMap
 }
 
 function runTest(content: any, validators: Validator[]) {
@@ -61,7 +76,7 @@ function uniqueValidators(validators: Validator[]): Validator[] {
 }
 
 function find(arr: any[], fn: (item: any) => boolean): boolean {
-    for(let i = 0; i <= arr.length; i++) {
+    for(let i = 0; i < arr.length; i++) {
         if(fn(arr[i])) {
             return true
         }
